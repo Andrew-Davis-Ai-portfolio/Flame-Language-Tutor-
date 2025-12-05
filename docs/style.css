@@ -1,631 +1,502 @@
-// app.js
-// Flame Division Academy — Flame Language Trainer Dojo (Curriculum One)
+/* style.css */
+/* Flame Division Academy — Flame Language Trainer Dojo (Curriculum One) */
 
-document.addEventListener("DOMContentLoaded", () => {
-  // =========================
-  // TTS CORE
-  // =========================
-  const tts = {
-    supported:
-      "speechSynthesis" in window &&
-      typeof window.SpeechSynthesisUtterance !== "undefined",
-    synth: "speechSynthesis" in window ? window.speechSynthesis : null,
-    currentUtterance: null,
-  };
+:root {
+  --bg-main: #05070d;
+  --bg-alt: #0c111b;
+  --card-bg: #111827;
+  --accent-gold: #f5b544;
+  --accent-gold-soft: rgba(245, 181, 68, 0.13);
+  --accent-red: #ff4b6a;
+  --accent-green: #43e6a4;
+  --border-soft: rgba(148, 163, 184, 0.35);
+  --text-main: #f9fafb;
+  --text-soft: #9ca3af;
+  --text-muted: #6b7280;
+  --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.6);
+  --radius-card: 14px;
+}
 
-  function speak(text) {
-    if (!tts.supported || !text) return;
-    try {
-      if (tts.currentUtterance) {
-        tts.synth.cancel();
-        tts.currentUtterance = null;
-      }
-      const utterance = new window.SpeechSynthesisUtterance(text);
-      utterance.onend = () => {
-        tts.currentUtterance = null;
-      };
-      utterance.onerror = () => {
-        tts.currentUtterance = null;
-      };
-      tts.currentUtterance = utterance;
-      tts.synth.speak(utterance);
-    } catch (e) {
-      console.warn("TTS error:", e);
-    }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #101827 0, #020617 52%, #000 100%);
+  color: var(--text-main);
+  min-height: 100vh;
+}
+
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+}
+
+/* HEADER */
+
+.fda-header {
+  margin-bottom: 20px;
+}
+
+.brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-mark {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 20%, #f97316, #b91c1c 65%, #020617);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #fef9c3;
+  box-shadow: 0 0 18px rgba(248, 250, 252, 0.35);
+}
+
+.brand-text h1 {
+  margin: 0 0 4px;
+  font-size: 1.6rem;
+  letter-spacing: 0.02em;
+}
+
+.brand-text p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--text-soft);
+}
+
+.designer-line {
+  margin-top: 2px;
+  color: var(--accent-gold);
+  font-size: 0.88rem;
+}
+
+.header-note {
+  margin: 14px 0 4px;
+  font-size: 0.96rem;
+  color: var(--text-soft);
+}
+
+.dojo-note {
+  margin: 0 0 14px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* MODE NAV */
+
+.mode-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.mode-tab {
+  flex: 1 1 120px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border-soft);
+  background: rgba(15, 23, 42, 0.92);
+  color: var(--text-soft);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: 0.16s ease;
+}
+
+.mode-tab.active {
+  background: var(--accent-gold-soft);
+  color: var(--accent-gold);
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 1px rgba(245, 181, 68, 0.35);
+}
+
+.mode-tab:hover {
+  transform: translateY(-1px);
+  border-color: rgba(148, 163, 184, 0.7);
+}
+
+/* PANELS & CARDS */
+
+.mode-panel {
+  display: none;
+}
+
+.mode-panel.active {
+  display: block;
+}
+
+.card {
+  background: linear-gradient(145deg, var(--card-bg), #020617);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-soft);
+  padding: 18px 16px 20px;
+  box-shadow: var(--shadow-soft);
+}
+
+.card h2 {
+  margin: 0 0 4px;
+  font-size: 1.4rem;
+}
+
+.section-subtitle {
+  margin: 0 0 14px;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+/* FOUNDATION */
+
+.foundation-text p {
+  margin: 0 0 8px;
+  font-size: 0.94rem;
+  color: var(--text-main);
+}
+
+.foundation-laws {
+  margin-top: 12px;
+}
+
+.foundation-laws h3 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+}
+
+.foundation-laws ul {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+.foundation-laws li + li {
+  margin-top: 4px;
+}
+
+.foundation-tts {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.tts-status {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* SYMBOL LEGEND */
+
+.symbol-legend {
+  margin-top: 16px;
+  border-top: 1px dashed rgba(148, 163, 184, 0.4);
+  padding-top: 10px;
+}
+
+.symbol-legend h3 {
+  margin: 0 0 4px;
+  font-size: 0.98rem;
+}
+
+.symbol-legend p {
+  margin: 0 0 6px;
+  font-size: 0.88rem;
+  color: var(--text-soft);
+}
+
+.symbol-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.symbol-list li {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.symbol-list li + li {
+  margin-top: 4px;
+}
+
+.symbol {
+  font-size: 1.1rem;
+}
+
+/* SYMBOL TRAINER */
+
+.symbol-card {
+  border-radius: var(--radius-card);
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  padding: 12px 12px 14px;
+  background: radial-gradient(circle at top left, #1f2937, #020617 60%);
+}
+
+.symbol-main {
+  margin-bottom: 10px;
+}
+
+.symbol-display-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.symbol-large {
+  font-size: 2rem;
+}
+
+.symbol-label {
+  font-size: 0.9rem;
+  color: var(--accent-gold);
+}
+
+.symbol-prompt {
+  margin: 8px 0 0;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+.symbol-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.symbol-option-btn {
+  padding: 7px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border-soft);
+  background: rgba(15, 23, 42, 0.9);
+  color: var(--text-main);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: 0.16s ease;
+}
+
+.symbol-option-btn:hover {
+  border-color: rgba(148, 163, 184, 0.8);
+}
+
+.symbol-option-btn.correct {
+  background: rgba(34, 197, 94, 0.14);
+  border-color: #22c55e;
+}
+
+.symbol-option-btn.incorrect {
+  background: rgba(248, 113, 113, 0.1);
+  border-color: #f97373;
+}
+
+.symbol-option-btn.disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.symbol-feedback-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  gap: 8px;
+}
+
+.symbol-feedback {
+  margin: 0;
+  font-size: 0.86rem;
+  color: var(--text-soft);
+}
+
+.symbol-score {
+  margin: 0;
+  font-size: 0.84rem;
+  color: var(--text-muted);
+}
+
+.symbol-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* SENTENCE FORGE */
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 80px;
+  border-radius: 10px;
+  border: 1px solid var(--border-soft);
+  background: rgba(15, 23, 42, 0.9);
+  color: var(--text-main);
+  padding: 8px 10px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  resize: vertical;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 1px rgba(245, 181, 68, 0.3);
+}
+
+.output-group {
+  margin-top: 10px;
+}
+
+.output-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.output-note {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.sentence-actions {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.inline-status-row {
+  margin-top: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.warning-text {
+  margin: 4px 0 0;
+  font-size: 0.82rem;
+  color: var(--accent-red);
+}
+
+.copy-status {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* ASSESSMENT */
+
+.assessment-controls {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.assessment-report {
+  margin-top: 12px;
+  padding: 10px 10px;
+  border-radius: 10px;
+  border: 1px dashed rgba(148, 163, 184, 0.75);
+  background: rgba(15, 23, 42, 0.9);
+  font-size: 0.86rem;
+  white-space: pre-wrap;
+  color: var(--text-main);
+}
+
+/* BUTTONS */
+
+.btn-primary,
+.btn-secondary,
+.btn-ghost {
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: 0.2s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-gold), #f97316);
+  color: #111827;
+  border-color: rgba(249, 250, 251, 0.15);
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: rgba(15, 23, 42, 0.95);
+  color: var(--text-main);
+  border-color: rgba(148, 163, 184, 0.7);
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-soft);
+  border-color: rgba(148, 163, 184, 0.6);
+}
+
+.btn-ghost:hover {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+}
+
+/* FOOTER */
+
+.fda-footer {
+  margin-top: 20px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* RESPONSIVE */
+
+@media (min-width: 768px) {
+  .page {
+    padding: 32px 20px 48px;
   }
 
-  function showTtsUnavailable(statusElement) {
-    if (!statusElement) return;
-    statusElement.textContent =
-      "Voice mode is not available on this device or browser.";
+  .card {
+    padding: 20px 20px 22px;
   }
-
-  // =========================
-  // MODE SWITCHING
-  // =========================
-  const modeTabs = Array.from(document.querySelectorAll(".mode-tab"));
-  const modePanels = Array.from(document.querySelectorAll(".mode-panel"));
-
-  modeTabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      const targetId = tab.getAttribute("data-target");
-      if (!targetId) return;
-
-      modeTabs.forEach((t) => t.classList.remove("active"));
-      modePanels.forEach((panel) => panel.classList.remove("active"));
-
-      tab.classList.add("active");
-      const targetPanel = document.getElementById(targetId);
-      if (targetPanel) {
-        targetPanel.classList.add("active");
-      }
-    });
-  });
-
-  // =========================
-  // FOUNDATION TTS
-  // =========================
-  const foundationTextEl = document.getElementById("foundation-text");
-  const foundationTtsBtn = document.getElementById("btn-foundation-tts");
-  const foundationTtsStatus = document.getElementById("foundation-tts-status");
-
-  if (foundationTtsBtn) {
-    foundationTtsBtn.addEventListener("click", () => {
-      if (!tts.supported) {
-        showTtsUnavailable(foundationTtsStatus);
-        return;
-      }
-      const text = foundationTextEl ? foundationTextEl.innerText : "";
-      speak(text);
-      if (foundationTtsStatus) {
-        foundationTtsStatus.textContent = "Reading foundation lesson...";
-      }
-    });
-  }
-
-  if (!tts.supported && foundationTtsStatus) {
-    foundationTtsStatus.textContent =
-      "Voice mode is not available on this device or browser.";
-  }
-
-  // =========================
-  // SYMBOL TRAINER
-  // =========================
-  const symbolDisplay = document.getElementById("symbol-display");
-  const symbolLabel = document.getElementById("symbol-label");
-  const symbolPrompt = document.getElementById("symbol-prompt");
-  const symbolOptionsContainer = document.getElementById("symbol-options");
-  const symbolFeedback = document.getElementById("symbol-feedback");
-  const symbolScoreEl = document.getElementById("symbol-score");
-  const symbolNextBtn = document.getElementById("btn-symbol-next");
-  const symbolTtsBtn = document.getElementById("btn-symbol-tts");
-  const symbolTtsStatus = document.getElementById("symbol-tts-status");
-
-  const symbolCards = [
-    {
-      symbol: "🔥",
-      label: "[INTENT]",
-      role: "Intent / Goal",
-      prompt:
-        "🔥 marks structured intent — the focused signal of what you are actually trying to do.",
-      options: [
-        "Intent / Goal",
-        "Boundary / Rule",
-        "Context / Situation",
-        "Action / Execution",
-      ],
-    },
-    {
-      symbol: "🧠",
-      label: "[CONTEXT]",
-      role: "Context / Situation",
-      prompt:
-        "🧠 represents context — who this applies to, and where the situation is happening.",
-      options: [
-        "Boundary / Rule",
-        "Context / Situation",
-        "Action / Execution",
-        "Intent / Goal",
-      ],
-    },
-    {
-      symbol: "🛡️",
-      label: "[BOUNDARY]",
-      role: "Boundary / Rule",
-      prompt:
-        "🛡️ represents boundaries — the rules, ethics, and red lines that must not be crossed.",
-      options: [
-        "Action / Execution",
-        "Context / Situation",
-        "Boundary / Rule",
-        "Intent / Goal",
-      ],
-    },
-    {
-      symbol: "⚙️",
-      label: "[ACTION]",
-      role: "Action / Execution",
-      prompt:
-        "⚙️ represents action — the steps you will actually take to carry out the intent safely.",
-      options: [
-        "Action / Execution",
-        "Boundary / Rule",
-        "Context / Situation",
-        "Intent / Goal",
-      ],
-    },
-  ];
-
-  let symbolIndex = 0;
-  let symbolCorrect = 0;
-  let symbolAttempts = 0;
-
-  function updateSymbolScore() {
-    if (symbolScoreEl) {
-      symbolScoreEl.textContent = `Score: ${symbolCorrect} / ${symbolAttempts}`;
-    }
-  }
-
-  function disableSymbolOptions() {
-    const buttons =
-      symbolOptionsContainer &&
-      symbolOptionsContainer.querySelectorAll(".symbol-option-btn");
-    if (!buttons) return;
-    buttons.forEach((btn) => {
-      btn.classList.add("disabled");
-      btn.disabled = true;
-    });
-  }
-
-  function renderSymbolCard() {
-    const card = symbolCards[symbolIndex];
-    if (!card || !symbolDisplay || !symbolLabel || !symbolPrompt) return;
-
-    symbolDisplay.textContent = card.symbol;
-    symbolLabel.textContent = card.label;
-    symbolPrompt.textContent = "What does this symbol represent in Flame training?";
-
-    if (symbolFeedback) {
-      symbolFeedback.textContent = "Select the correct role.";
-      symbolFeedback.style.color = "";
-    }
-
-    if (symbolOptionsContainer) {
-      symbolOptionsContainer.innerHTML = "";
-      card.options.forEach((opt) => {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "symbol-option-btn";
-        btn.textContent = opt;
-
-        btn.addEventListener("click", () => {
-          if (btn.classList.contains("disabled")) return;
-
-          symbolAttempts += 1;
-          let correct = opt === card.role;
-          if (correct) {
-            symbolCorrect += 1;
-            btn.classList.add("correct");
-            if (symbolFeedback) {
-              symbolFeedback.textContent =
-                "Correct. Lock in that mapping and move to the next card when ready.";
-              symbolFeedback.style.color = "#9af3c3";
-            }
-          } else {
-            btn.classList.add("incorrect");
-            if (symbolFeedback) {
-              symbolFeedback.textContent = `Incorrect. Correct mapping: ${card.role}.`;
-              symbolFeedback.style.color = "#ff9cae";
-            }
-            // Highlight correct option
-            const buttons =
-              symbolOptionsContainer.querySelectorAll(".symbol-option-btn");
-            buttons.forEach((b) => {
-              if (b.textContent === card.role) {
-                b.classList.add("correct");
-              }
-            });
-          }
-          updateSymbolScore();
-          disableSymbolOptions();
-        });
-
-        symbolOptionsContainer.appendChild(btn);
-      });
-    }
-  }
-
-  if (symbolNextBtn) {
-    symbolNextBtn.addEventListener("click", () => {
-      symbolIndex = (symbolIndex + 1) % symbolCards.length;
-      renderSymbolCard();
-    });
-  }
-
-  if (symbolTtsBtn) {
-    symbolTtsBtn.addEventListener("click", () => {
-      if (!tts.supported) {
-        showTtsUnavailable(symbolTtsStatus);
-        return;
-      }
-      const card = symbolCards[symbolIndex];
-      if (!card) return;
-      const text = `${card.symbol} ${card.label}. ${card.prompt}`;
-      speak(text);
-      if (symbolTtsStatus) {
-        symbolTtsStatus.textContent = "Reading current symbol card...";
-      }
-    });
-  }
-
-  if (!tts.supported && symbolTtsStatus) {
-    symbolTtsStatus.textContent =
-      "Voice mode is not available on this device or browser.";
-  }
-
-  renderSymbolCard();
-  updateSymbolScore();
-
-  // =========================
-  // SENTENCE FORGE
-  // =========================
-  const plainInput = document.getElementById("plain-input");
-  const structureBtn = document.getElementById("btn-structure");
-  const flameOutput = document.getElementById("flame-output");
-  const sentenceWarning = document.getElementById("sentence-warning");
-  const sentenceTtsBtn = document.getElementById("btn-sentence-tts");
-  const sentenceTtsStatus = document.getElementById("sentence-tts-status");
-  const sentenceCopyBtn = document.getElementById("btn-sentence-copy");
-  const sentenceCopyStatus = document.getElementById("sentence-copy-status");
-
-  function buildStructuredSentence(raw) {
-    const input = (raw || "").trim();
-    if (!input) return "";
-
-    // Simple truncation to keep intent concise
-    let shortIntent = input;
-    if (shortIntent.length > 140) {
-      shortIntent = shortIntent.slice(0, 137) + "...";
-    }
-
-    const structured = `[INTENT] ${shortIntent} — [CONTEXT] Clearly state who this applies to and the environment you are operating in. — [BOUNDARY] No harm, no misuse, no manipulation, and full respect for ethical and legal limits. — [ACTION] Describe the concrete steps you will take to execute this safely and responsibly.`;
-    return structured;
-  }
-
-  if (structureBtn) {
-    structureBtn.addEventListener("click", () => {
-      if (!plainInput || !flameOutput) return;
-      const raw = plainInput.value.trim();
-      if (!raw) {
-        if (sentenceWarning) {
-          sentenceWarning.textContent =
-            "Write a plain sentence first. The dojo cannot structure a blank signal.";
-        }
-        return;
-      }
-      if (sentenceWarning) {
-        sentenceWarning.textContent = "";
-      }
-      const structured = buildStructuredSentence(raw);
-      flameOutput.readOnly = false;
-      flameOutput.value = structured;
-      flameOutput.readOnly = true;
-    });
-  }
-
-  if (sentenceTtsBtn) {
-    sentenceTtsBtn.addEventListener("click", () => {
-      if (!tts.supported) {
-        showTtsUnavailable(sentenceTtsStatus);
-        return;
-      }
-      if (!flameOutput || !flameOutput.value.trim()) {
-        if (sentenceTtsStatus) {
-          sentenceTtsStatus.textContent =
-            "Nothing to read yet. Forge a structured sentence first.";
-        }
-        return;
-      }
-      speak(flameOutput.value);
-      if (sentenceTtsStatus) {
-        sentenceTtsStatus.textContent = "Reading structured Flame sentence...";
-      }
-    });
-  }
-
-  if (!tts.supported && sentenceTtsStatus) {
-    sentenceTtsStatus.textContent =
-      "Voice mode is not available on this device or browser.";
-  }
-
-  if (sentenceCopyBtn) {
-    sentenceCopyBtn.addEventListener("click", () => {
-      if (!flameOutput || !flameOutput.value.trim()) {
-        if (sentenceCopyStatus) {
-          sentenceCopyStatus.textContent =
-            "Nothing to copy. Forge a structured sentence first.";
-        }
-        return;
-      }
-      const text = flameOutput.value;
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard
-          .writeText(text)
-          .then(() => {
-            if (sentenceCopyStatus) {
-              sentenceCopyStatus.textContent =
-                "Structured sentence copied to clipboard.";
-            }
-          })
-          .catch(() => {
-            if (sentenceCopyStatus) {
-              sentenceCopyStatus.textContent =
-                "Unable to access clipboard. Select and copy manually.";
-            }
-          });
-      } else {
-        if (sentenceCopyStatus) {
-          sentenceCopyStatus.textContent =
-            "Clipboard not supported. Select and copy manually.";
-        }
-      }
-    });
-  }
-
-  // =========================
-  // ASSESSMENT DOJO
-  // =========================
-  const assessmentInput = document.getElementById("assessment-input");
-  const runAssessmentBtn = document.getElementById("btn-run-assessment");
-  const assessmentReportEl = document.getElementById("assessment-report");
-  const copyReportBtn = document.getElementById("btn-copy-report");
-  const copyReportStatus = document.getElementById("copy-report-status");
-  const assessmentTtsBtn = document.getElementById("btn-assessment-tts");
-  const assessmentTtsStatus = document.getElementById("assessment-tts-status");
-
-  let lastAssessmentReport = "";
-
-  const vagueWords = ["stuff", "things", "maybe", "kinda", "sort of", "sorta"];
-
-  function countVagueWords(text) {
-    if (!text) return 0;
-    const lower = text.toLowerCase();
-    let count = 0;
-    vagueWords.forEach((w) => {
-      const regex = new RegExp(`\\b${w.replace(" ", "\\s+")}\\b`, "g");
-      const matches = lower.match(regex);
-      if (matches) {
-        count += matches.length;
-      }
-    });
-    return count;
-  }
-
-  function extractSegment(full, tag, nextTagPositions) {
-    const tagIndex = full.indexOf(tag);
-    if (tagIndex === -1) return "";
-    const start = tagIndex + tag.length;
-
-    let end = full.length;
-    nextTagPositions.forEach((pos) => {
-      if (pos !== -1 && pos > start && pos < end) {
-        end = pos;
-      }
-    });
-
-    return full.slice(start, end).trim();
-  }
-
-  function categoryFromSegment(seg) {
-    if (!seg || seg.length < 5) return "FAIL";
-    const vagueCount = countVagueWords(seg);
-    if (seg.length < 20 || vagueCount > 0) return "BORDERLINE";
-    return "PASS";
-  }
-
-  function buildAssessmentReport(inputRaw) {
-    const input = (inputRaw || "").trim();
-    if (!input) {
-      return {
-        text:
-          "Flame Language Assessment Report — Curriculum One\n\n" +
-          "Overall Status: Not Ready\n\n" +
-          "Hard Truth:\n" +
-          "You submitted an empty signal. The dojo cannot assess what does not exist.\n\n" +
-          "Correction Reps:\n" +
-          "1. Write one complete Flame sentence using all four tags.\n" +
-          "2. Make sure each section has at least one clear phrase.\n" +
-          "3. Remove filler words like 'stuff' or 'things'.\n\n" +
-          "Final Status: REJECTED – REVISE AND RESUBMIT",
-        overall: "Not Ready",
-      };
-    }
-
-    const positions = {
-      intent: input.indexOf("[INTENT]"),
-      context: input.indexOf("[CONTEXT]"),
-      boundary: input.indexOf("[BOUNDARY]"),
-      action: input.indexOf("[ACTION]"),
-    };
-
-    const allPositions = [
-      positions.intent,
-      positions.context,
-      positions.boundary,
-      positions.action,
-    ];
-
-    const intentSeg = extractSegment(input, "[INTENT]", allPositions);
-    const contextSeg = extractSegment(input, "[CONTEXT]", allPositions);
-    const boundarySeg = extractSegment(input, "[BOUNDARY]", allPositions);
-    const actionSeg = extractSegment(input, "[ACTION]", allPositions);
-
-    const hasAllTags =
-      positions.intent !== -1 &&
-      positions.context !== -1 &&
-      positions.boundary !== -1 &&
-      positions.action !== -1;
-
-    const intentCat = categoryFromSegment(intentSeg);
-    const contextCat = categoryFromSegment(contextSeg);
-    const boundaryCat = categoryFromSegment(boundarySeg);
-    const actionCat = categoryFromSegment(actionSeg);
-
-    const totalVague =
-      countVagueWords(intentSeg) +
-      countVagueWords(contextSeg) +
-      countVagueWords(boundarySeg) +
-      countVagueWords(actionSeg);
-
-    const categories = [intentCat, contextCat, boundaryCat, actionCat];
-    const failCount = categories.filter((c) => c === "FAIL").length;
-    const borderlineCount = categories.filter((c) => c === "BORDERLINE").length;
-
-    let overall = "Borderline";
-    let finalStatus = "PASS – CONTINUE TRAINING";
-    let hardTruth = "";
-
-    if (!hasAllTags || failCount >= 2) {
-      overall = "Not Ready";
-      finalStatus = "REJECTED – REVISE AND RESUBMIT";
-      hardTruth =
-        "Your sentence is missing critical structure. Every Flame sentence must include [INTENT], [CONTEXT], [BOUNDARY], and [ACTION] with real content, not placeholders.";
-    } else if (
-      hasAllTags &&
-      failCount === 0 &&
-      borderlineCount === 0 &&
-      totalVague === 0
-    ) {
-      overall = "Strong";
-      finalStatus = "PASS – CONTINUE TRAINING";
-      hardTruth =
-        "You are showing strong structural discipline. The next level is precision: refine each phrase until there is zero ambiguity.";
-    } else {
-      overall = "Borderline";
-      finalStatus = "PASS – CONTINUE TRAINING";
-      hardTruth =
-        "You have the frame, but parts of your sentence are still vague or underpowered. The dojo requires sharper context and boundaries.";
-    }
-
-    const correctionReps = [];
-
-    if (intentCat !== "PASS") {
-      correctionReps.push(
-        "Tighten your [INTENT] section — state one clear outcome, not a soft desire."
-      );
-    }
-    if (contextCat !== "PASS") {
-      correctionReps.push(
-        "Upgrade your [CONTEXT] section — name who this applies to and where it operates."
-      );
-    }
-    if (boundaryCat !== "PASS") {
-      correctionReps.push(
-        "Strengthen your [BOUNDARY] section — define what you will NOT allow, especially around harm and misuse."
-      );
-    }
-    if (actionCat !== "PASS") {
-      correctionReps.push(
-        "Clarify your [ACTION] section — list concrete steps instead of vague intentions."
-      );
-    }
-    if (correctionReps.length === 0) {
-      correctionReps.push(
-        "Run this sentence against a real scenario and adjust any phrase that could be misread by a human or an AI."
-      );
-    }
-    while (correctionReps.length < 3) {
-      correctionReps.push(
-        "Cut every vague word (like 'stuff' or 'things') and replace it with a specific noun or action."
-      );
-    }
-
-    const reportText =
-      "Flame Language Assessment Report — Curriculum One\n\n" +
-      `Submitted Flame Sentence:\n${input}\n\n` +
-      `Overall Status: ${overall}\n\n` +
-      "Categories:\n" +
-      `- Intent Clarity: ${intentCat}\n` +
-      `- Context Specificity: ${contextCat}\n` +
-      `- Boundary Strength: ${boundaryCat}\n` +
-      `- Action Precision: ${actionCat}\n\n` +
-      "Hard Truth:\n" +
-      hardTruth +
-      "\n\n" +
-      "Correction Reps:\n" +
-      `1. ${correctionReps[0]}\n` +
-      `2. ${correctionReps[1]}\n` +
-      `3. ${correctionReps[2]}\n\n` +
-      `Final Status: ${finalStatus}`;
-
-    return { text: reportText, overall };
-  }
-
-  if (runAssessmentBtn) {
-    runAssessmentBtn.addEventListener("click", () => {
-      if (!assessmentInput || !assessmentReportEl) return;
-      const raw = assessmentInput.value;
-      const result = buildAssessmentReport(raw);
-      lastAssessmentReport = result.text;
-      assessmentReportEl.textContent = result.text;
-      if (copyReportStatus) copyReportStatus.textContent = "";
-      if (assessmentTtsStatus) assessmentTtsStatus.textContent = "";
-    });
-  }
-
-  if (copyReportBtn) {
-    copyReportBtn.addEventListener("click", () => {
-      if (!lastAssessmentReport) {
-        if (copyReportStatus) {
-          copyReportStatus.textContent =
-            "Run an assessment first. The dojo copies reports, not empty pages.";
-        }
-        return;
-      }
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard
-          .writeText(lastAssessmentReport)
-          .then(() => {
-            if (copyReportStatus) {
-              copyReportStatus.textContent =
-                "Assessment report copied to clipboard for instructor review.";
-            }
-          })
-          .catch(() => {
-            if (copyReportStatus) {
-              copyReportStatus.textContent =
-                "Unable to access clipboard. Select and copy the report manually.";
-            }
-          });
-      } else if (copyReportStatus) {
-        copyReportStatus.textContent =
-          "Clipboard not supported. Select and copy the report manually.";
-      }
-    });
-  }
-
-  if (assessmentTtsBtn) {
-    assessmentTtsBtn.addEventListener("click", () => {
-      if (!tts.supported) {
-        showTtsUnavailable(assessmentTtsStatus);
-        return;
-      }
-      if (!lastAssessmentReport) {
-        if (assessmentTtsStatus) {
-          assessmentTtsStatus.textContent =
-            "Run an assessment first. The dojo reads reports after they exist.";
-        }
-        return;
-      }
-      speak(lastAssessmentReport);
-      if (assessmentTtsStatus) {
-        assessmentTtsStatus.textContent = "Reading assessment report...";
-      }
-    });
-  }
-
-  if (!tts.supported && assessmentTtsStatus) {
-    assessmentTtsStatus.textContent =
-      "Voice mode is not available on this device or browser.";
-  }
-});
+}
