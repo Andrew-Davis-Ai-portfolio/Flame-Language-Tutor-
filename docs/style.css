@@ -433,6 +433,48 @@ textarea:focus {
   color: var(--text-main);
 }
 
+/* COACH PANEL */
+
+.coach-card {
+  margin-top: 16px;
+  padding: 12px 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(248, 113, 113, 0.5);
+  background: radial-gradient(circle at top right, #1e293b, #020617 60%);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6);
+}
+
+.coach-card h3 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+  color: #fee2e2;
+}
+
+.coach-text p {
+  margin: 0 0 6px;
+  font-size: 0.86rem;
+  color: var(--text-soft);
+}
+
+.coach-text ul {
+  margin: 0 0 6px;
+  padding-left: 18px;
+  font-size: 0.84rem;
+  color: var(--text-soft);
+}
+
+.coach-text li + li {
+  margin-top: 4px;
+}
+
+.coach-controls {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
 /* BUTTONS */
 
 .btn-primary,
