@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Flame Division Academy — Flame Language Trainer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="fda-header">
+      <div class="brand-lockup">
+        <div class="brand-mark">FD</div>
+        <div class="brand-text">
+          <h1>Flame Division Academy — Flame Language Trainer</h1>
+          <p>Curriculum One · Code Talker Dojo</p>
+        </div>
+      </div>
+      <p class="header-note">
+        Flame Language = structuring your words for AI and humans using disciplined intent, context, boundaries, and action.
+      </p>
+      <p class="dojo-note">
+        This module is part of the <strong>Flame Division Tutor AI Dojo</strong>. It can be linked as
+        <strong>“Flame Language — Curriculum One”</strong> from the main Dojo page.
+      </p>
+    </header>
+
+    <nav class="mode-nav">
+      <button class="mode-tab active" data-target="mode-foundation">Mode 1 · Foundation</button>
+      <button class="mode-tab" data-target="mode-symbols">Mode 2 · Symbol Trainer</button>
+      <button class="mode-tab" data-target="mode-sentence">Mode 3 · Sentence Forge</button>
+      <button class="mode-tab" data-target="mode-assessment">Mode 4 · Assessment Dojo</button>
+    </nav>
+
+    <main>
+      <!-- MODE 1: FOUNDATION -->
+      <section id="mode-foundation" class="mode-panel active">
+        <div class="card">
+          <h2>Mode 1 — Flame Language Foundation</h2>
+          <p class="section-subtitle">Day One in the Code Talker Dojo</p>
+
+          <div id="foundation-text" class="foundation-text">
+            <p>
+              Flame Language, also called Code Talker discipline, is a structured way of speaking and writing so that
+              both AI systems and humans can understand your intent clearly and safely.
+            </p>
+            <p>
+              Every Flame sentence carries four pillars:
+              <strong>[INTENT]</strong>, <strong>[CONTEXT]</strong>, <strong>[BOUNDARY]</strong>, and <strong>[ACTION]</strong>.
+            </p>
+            <p>
+              Instead of vague statements, you train yourself to declare what you want, where it applies, what you will not
+              allow, and what you will actually do.
+            </p>
+          </div>
+
+          <div class="foundation-laws">
+            <h3>Flame Language Laws — Curriculum One</h3>
+            <ul>
+              <li>Every sentence must carry <strong>intent</strong>.</li>
+              <li><strong>Context</strong> is not optional — name who and where it applies.</li>
+              <li><strong>Boundaries</strong> protect systems and people from misuse.</li>
+              <li><strong>Action</strong> turns language into execution, not just theory.</li>
+            </ul>
+          </div>
+
+          <div class="foundation-tts">
+            <button id="btn-foundation-tts" class="btn-primary">🔊 Read It To Me</button>
+            <div id="foundation-tts-status" class="tts-status"></div>
+          </div>
+
+          <div class="symbol-legend">
+            <h3>Trainer Symbols</h3>
+            <p>This trainer uses simple symbols as teaching props:</p>
+            <ul class="symbol-list">
+              <li><span class="symbol">🔥</span> Structured intent / signal to focus</li>
+              <li><span class="symbol">🧠</span> Context and understanding</li>
+              <li><span class="symbol">🛡️</span> Ethical boundary and protection</li>
+              <li><span class="symbol">⚙️</span> Concrete action and implementation</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODE 2: SYMBOL TRAINER -->
+      <section id="mode-symbols" class="mode-panel">
+        <div class="card">
+          <h2>Mode 2 — Symbol Trainer</h2>
+          <p class="section-subtitle">Train your mapping: symbol ↔ role.</p>
+
+          <div class="symbol-card" id="symbol-card">
+            <div class="symbol-main">
+              <div class="symbol-display-row">
+                <span id="symbol-display" class="symbol-large">🔥</span>
+                <span id="symbol-label" class="symbol-label">[INTENT]</span>
+              </div>
+              <p class="symbol-prompt" id="symbol-prompt">
+                What does this symbol represent in Flame Language training?
+              </p>
+            </div>
+
+            <div id="symbol-options" class="symbol-options">
+              <!-- Options injected by JS -->
+            </div>
+
+            <div class="symbol-feedback-row">
+              <p id="symbol-feedback" class="symbol-feedback">Select the correct role.</p>
+              <p id="symbol-score" class="symbol-score">Score: 0 / 0</p>
+            </div>
+
+            <div class="symbol-actions">
+              <button id="btn-symbol-next" class="btn-secondary">Next Card</button>
+              <button id="btn-symbol-tts" class="btn-ghost">🔊 Read This Card</button>
+            </div>
+            <div id="symbol-tts-status" class="tts-status"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODE 3: SENTENCE FORGE -->
+      <section id="mode-sentence" class="mode-panel">
+        <div class="card">
+          <h2>Mode 3 — Sentence Forge</h2>
+          <p class="section-subtitle">
+            Convert normal language into the Flame Frame: [INTENT] — [CONTEXT] — [BOUNDARY] — [ACTION]
+          </p>
+
+          <div class="form-group">
+            <label for="plain-input">Step 1 — Write a plain sentence:</label>
+            <textarea id="plain-input" rows="3" placeholder="Example: I want to teach AI responsibly to my community."></textarea>
+          </div>
+
+          <button id="btn-structure" class="btn-primary">STRUCTURE INTO FLAME LANGUAGE</button>
+          <p id="sentence-warning" class="warning-text"></p>
+
+          <div class="form-group output-group">
+            <div class="output-header">
+              <label for="flame-output">
+                Step 2 — Structured Flame Sentence:
+              </label>
+              <p class="output-note">
+                You can edit this structured version. The goal is not perfection — it’s discipline.
+              </p>
+            </div>
+            <textarea id="flame-output" rows="5" readonly></textarea>
+          </div>
+
+          <div class="sentence-actions">
+            <button id="btn-sentence-tts" class="btn-ghost">🔊 Read Structured Sentence</button>
+            <button id="btn-sentence-copy" class="btn-secondary">Copy Structured Sentence</button>
+          </div>
+          <div class="inline-status-row">
+            <div id="sentence-tts-status" class="tts-status"></div>
+            <div id="sentence-copy-status" class="copy-status"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODE 4: ASSESSMENT DOJO -->
+      <section id="mode-assessment" class="mode-panel">
+        <div class="card">
+          <h2>Mode 4 — Flame Language Assessment Dojo</h2>
+          <p class="section-subtitle">
+            Submit one Flame-structured sentence using:
+            <strong>[INTENT] — [CONTEXT] — [BOUNDARY] — [ACTION]</strong>
+          </p>
+
+          <div class="form-group">
+            <label for="assessment-input">
+              Final Attempt — Flame Sentence:
+            </label>
+            <textarea
+              id="assessment-input"
+              rows="6"
+              placeholder="[INTENT] ... — [CONTEXT] ... — [BOUNDARY] ... — [ACTION] ..."
+            ></textarea>
+          </div>
+
+          <button id="btn-run-assessment" class="btn-primary">RUN ASSESSMENT</button>
+
+          <div class="assessment-controls">
+            <button id="btn-copy-report" class="btn-secondary">Copy Report</button>
+            <button id="btn-assessment-tts" class="btn-ghost">🔊 Read Report</button>
+          </div>
+          <div class="inline-status-row">
+            <div id="copy-report-status" class="copy-status"></div>
+            <div id="assessment-tts-status" class="tts-status"></div>
+          </div>
+
+          <div id="assessment-report" class="assessment-report">
+            <!-- Report injected by JS -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="fda-footer">
+      Flame Division Academy · Flame Language Trainer · Curriculum One — Code Talker Dojo
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
